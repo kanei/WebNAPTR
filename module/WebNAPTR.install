@@ -1,0 +1,20 @@
+<?php
+// $Id$ 
+
+/**
+ * @file 
+ */
+
+/**
+ * Implementation of hook_install() 
+ */
+function WebNAPTR_install() {
+
+}
+
+/**
+ * Implementation of hook_uninstall() 
+ */
+function WebNAPTR_uninstall() {
+
+}

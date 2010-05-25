@@ -1,0 +1,61 @@
+<?php
+// $Id$ 
+
+/**
+ * @file Drupal module for WebNAPTR library project
+ */
+
+///**
+// * Implementation of hook_block()
+// */
+//function WebNAPTR_block($op='list', $delta=0, $edit=array()) {
+//  switch ($op) {
+//    case 'list':
+//
+//    case 'view':
+//
+//    case 'configure':
+//
+//    case 'save':
+//
+//  }
+//}
+
+/**
+ * Implementation of hook_menu()
+ */
+function WebNAPTR_menu() {
+  $items = array();
+
+  $items['create_naptr'] = array(
+    'title' 		=> 'Create NAPTR record',
+    'access callback' 	=> 'user_access',
+    'access arguments' 	=> array('design_naptr'),
+    'page callback' 	=> 'drupal_get_form',
+    'page arguments' 	=> array('WebNAPTR_create'),
+    'type' 		=> MENU_NORMAL_ITEM,
+    'file' => 'WebNAPTR_create.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function WebNAPTR_permission() {
+  return array(
+    'design_naptr' => array(
+      'title' 		=> t('Design NAPTR record'),
+      'description' 	=> t('Access NAPTR record creation using WebNAPTR library.'),
+    ),
+  );
+}
+
+
+///**
+// * Implementation of hook_help()
+// */
+//function WebNAPTR_help($path, $arg) {
+//
+//}
