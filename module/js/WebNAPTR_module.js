@@ -3,22 +3,39 @@
 
     // replace default submit function
     $(".form-submit").click(function(){
-      Webnaptr.order = 10;
+      var result, uri, tel;
+      var selected = $('#edit-services input:radio:checked').val();
+      var flags = $('#flags_fs input:radio:checked').val();
+      Webnaptr.setFlags(flags);
       
-      var arpa = Webnaptr.convert_tel_enum("420775287458");
-      $("#edit-result").val(arpa);
+      switch(selected){
+      case '1':
+        uri = $('#edit-sip-uri').val();
+        tel = $('#edit-sip-telnum').val();
+        result = Webnaptr.generate_e2u_sip(uri, tel);
+        break;
+      case '2':
+        uri = $('#edit-sip-uri').val();
+        tel = $('#edit-sip-telnum').val();
+        result = Webnaptr.generate_e2u_email(uri, tel);
+        break;
+      default:
+        //Error message
+        break;
+      }
 
-      alert(Webnaptr.flags);
+      $("#edit-result").val(result);
+
       return false;
-    });
-
-    $(".form-radio").click(function(){
-      Webnaptr.setFlags(this.value);
     });
 
     $("#edit-order").change(function(){
       Webnaptr.setOrder(this.value);
     });
+
+    $("#edit-preference").change(function(){
+      Webnaptr.setPreference(this.value);
+    })
     
     
   });

@@ -10,10 +10,12 @@ function WebNAPTR_create($form, &$form_state) {
   drupal_add_js(drupal_get_path('module', 'WebNAPTR') . '/js/WebNAPTR.js');
   drupal_add_js(drupal_get_path('module', 'WebNAPTR') . '/js/WebNAPTR_module.js');
 
+
   $form['order'] = array(
     '#type'           => 'textfield',
     '#title'          => t('Order'),
     '#description'    => t('A 16-bit unsigned integer specifying the order in which the NAPTR records will be processed.'),
+    '#default_value'  => 50,
     '#required'       => TRUE,
   );
 
@@ -21,12 +23,15 @@ function WebNAPTR_create($form, &$form_state) {
     '#type'           => 'textfield',
     '#title'          => t('Preference'),
     '#description'    => t('A 16-bit unsigned integer that specifies the order in which NAPTR records with equal "order" values should be processed.'),
+    '#default_value'  => 50,
     '#required'       => TRUE,
   );
 
   $form['flags'] = array(
     '#title' 		=> t('Flags'),
     '#type' 		=> 'fieldset',
+    '#prefix'         => '<div id="flags_fs">',
+    '#suffix'         => '</div>',
   );
 
   $form['flags']['s'] = array(
@@ -68,7 +73,7 @@ function WebNAPTR_create($form, &$form_state) {
 
   $form['services']['e2u_sip'] = array(
     '#type'           => 'radio',
-    '#title'          => 'E2U+SIP',
+    '#title'          => 'E2U+sip',
     '#description'    => t('ENUM system for translating telephone number to URI.'),
     '#parents'        => array('services'),
     '#return_value'   => 1,
@@ -77,23 +82,38 @@ function WebNAPTR_create($form, &$form_state) {
       'wrapper'       => 'service_settings',
     ),
   );
+
+  $form['services']['e2u_email'] = array(
+    '#type'           => 'radio',
+    '#title'          => 'E2U+email',
+    '#description'    => t('ENUM system for translating telephone number to email.'),
+    '#parents'        => array('services'),
+    '#return_value'   => 2,
+    '#ajax'           => array(
+      'callback'      => 'services_callback',
+      'wrapper'       => 'service_settings',
+    ),
+  );
+
   $form['service_settings'] = array(
     '#title'          => t('Service settings'),
     '#type'           => 'fieldset',
+    '#prefix'         => '<div id="service_settings">',
+    '#suffix'         => '</div>',
   );
 
-  if(isset($form_state['values']['services'])) { // && $form['values']['services'] == 1) {
-    $form['service_settings']['sip_uri'] = array(
-      '#type'           => 'textfield',
-      '#title'          => t('SIP URI'),
-      '#description'    => t(''),
-      '#required'       => TRUE,
-    );
-
+  if(isset($form_state['values']['services']) && ($form_state['values']['services'] == 1 || $form_state['values']['services'] == 2 )) {
     $form['service_settings']['sip_telnum'] = array(
       '#type'           => 'textfield',
       '#title'          => t('Telephone number'),
       '#description'    => t('Write telephone number without +'),
+      '#required'       => TRUE,
+    );
+    
+    $form['service_settings']['sip_uri'] = array(
+      '#type'           => 'textfield',
+      '#title'          => t('SIP URI'),
+      '#description'    => t(''),
       '#required'       => TRUE,
     );
   }
@@ -117,5 +137,6 @@ function WebNAPTR_create($form, &$form_state) {
 }
 
 function services_callback($form, $form_state) {
-  return $form;//['service_settings'];
+  //drupal_set_message('<pre>'. print_r($form_state['values'], TRUE) .'</pre>');
+  return $form['service_settings'];
 }
