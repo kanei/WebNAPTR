@@ -3,21 +3,22 @@
 
       // replace default submit function
       $(".form-submit").click(function(){
-         var result, uri, tel;
+         var result;
          var selected = $('#edit-services input:radio:checked').val();
          var flags = $('#flags_fs input:radio:checked').val();
+         var uri = $('#edit-sip-uri').val();
+         var tel = $('#edit-sip-telnum').val();
+         
          Webnaptr.setFlags(flags);
+         Webnaptr.setURI(uri);
+         Webnaptr.setTelNum(tel);
       
          switch(selected){
             case '1':
-               uri = $('#edit-sip-uri').val();
-               tel = $('#edit-sip-telnum').val();
-               result = Webnaptr.generate_e2u_sip(uri, tel);
+               result = Webnaptr.generate(Webnaptr.Services.SIP);
                break;
             case '2':
-               uri = $('#edit-sip-uri').val();
-               tel = $('#edit-sip-telnum').val();
-               result = Webnaptr.generate_e2u_email(uri, tel);
+               result = Webnaptr.generate(Webnaptr.Services.EMAIL);
                break;
             default:
                //Error message
