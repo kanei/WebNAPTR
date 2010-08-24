@@ -8,10 +8,13 @@
          var flags = $('#flags_fs input:radio:checked').val();
          var uri = $('#edit-sip-uri').val();
          var tel = $('#edit-sip-telnum').val();
+         var repl = $('input[name=replacement]').val();
          
          Webnaptr.setFlags(flags);
          Webnaptr.setURI(uri);
          Webnaptr.setTelNum(tel);
+         if(repl)
+            Webnaptr.setReplacement(repl);
       
          switch(selected){
             case '1':
@@ -23,6 +26,10 @@
             default:
                //Error message
                break;
+         }
+
+         if(result == false) {
+            alert(Webnaptr.error);
          }
 
          $("#edit-result").val(result);
