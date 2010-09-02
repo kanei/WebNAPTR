@@ -9,12 +9,10 @@
          var uri = $('input[name=sip_uri]').val();
          var tel = $('input[name=sip_telnum]').val();
          var repl = $('input[name=replacement]').val();
-         var regexp = $('input[name=regexp_input]').val();
          
          Webnaptr.setFlags(flags);
          Webnaptr.setURI(uri);
          Webnaptr.setTelNum(tel);
-         Webnaptr.setRegexp(regexp);
          
          if(repl)
             Webnaptr.setReplacement(repl);
@@ -47,7 +45,14 @@
       $("#edit-preference").change(function(){
          Webnaptr.setPreference(this.value);
       })
-    
+
+      $('input[name=regexp_input]').change(function(){
+         Webnaptr.setRegexp(this.value);
+      })
+
+      $('input[name=regexp_ignorecase]').change(function() {
+         Webnaptr.ignorecase = this.checked;
+      })
     
    });
 
