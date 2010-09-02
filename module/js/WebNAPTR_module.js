@@ -9,7 +9,7 @@
          var uri = $('input[name=sip_uri]').val();
          var tel = $('input[name=sip_telnum]').val();
          var repl = $('input[name=replacement]').val();
-         var regexp = $('input[name=regexp]').val();
+         var regexp = $('input[name=regexp_input]').val();
          
          Webnaptr.setFlags(flags);
          Webnaptr.setURI(uri);

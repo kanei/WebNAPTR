@@ -28,11 +28,23 @@ function WebNAPTR_create($form, &$form_state) {
    );
 
    $form['regexp'] = array(
+           '#title' 		=> t('Regexp settings'),
+           '#type' 		=> 'fieldset',
+   );
+
+   $form['regexp']['regexp_input'] = array(
            '#type'           => 'textfield',
            '#title'          => t('Regular expression'),
-           '#description'    => t('Regular expression rule used in naptr record. If left blank, default (^.*$) regexp is used.'),
+           '#description'    => t('First part of expression rule used in naptr record. If left blank, default (^.*$) regexp is used and rule will be applied to every incoming string.'),
            '#default_value'  => '',
            '#required'       => FALSE,
+   );
+
+   $form['regexp']['regexp_ignorecase'] = array(
+           '#type'           => 'checkbox',
+           '#title'          => t('Ignorecase'),
+           '#description'    => t('Ignore lower/upper case differences in input data.'),
+           '#default_value'  => FALSE,
    );
 
    $form['flags'] = array(
@@ -136,7 +148,7 @@ function WebNAPTR_create($form, &$form_state) {
 
       $form['service_settings']['sip_uri'] = array(
               '#type'           => 'textfield',
-              '#title'          => t('SIP URI'),
+              '#title'          => $form_state['values']['services'] == 1 ? t('SIP URI') : t('Email address'),
               '#description'    => t(''),
               '#required'       => TRUE,
       );
