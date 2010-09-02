@@ -27,6 +27,14 @@ function WebNAPTR_create($form, &$form_state) {
            '#required'       => TRUE,
    );
 
+   $form['regexp'] = array(
+           '#type'           => 'textfield',
+           '#title'          => t('Regular expression'),
+           '#description'    => t('Regular expression rule used in naptr record. If left blank, default (^.*$) regexp is used.'),
+           '#default_value'  => '',
+           '#required'       => FALSE,
+   );
+
    $form['flags'] = array(
            '#title' 		=> t('Flags'),
            '#type' 		=> 'fieldset',

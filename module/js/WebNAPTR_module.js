@@ -6,13 +6,16 @@
          var result;
          var selected = $('#edit-services input:radio:checked').val();
          var flags = $('#flags_fs input:radio:checked').val();
-         var uri = $('#edit-sip-uri').val();
-         var tel = $('#edit-sip-telnum').val();
+         var uri = $('input[name=sip_uri]').val();
+         var tel = $('input[name=sip_telnum]').val();
          var repl = $('input[name=replacement]').val();
+         var regexp = $('input[name=regexp]').val();
          
          Webnaptr.setFlags(flags);
          Webnaptr.setURI(uri);
          Webnaptr.setTelNum(tel);
+         Webnaptr.setRegexp(regexp);
+         
          if(repl)
             Webnaptr.setReplacement(repl);
       
